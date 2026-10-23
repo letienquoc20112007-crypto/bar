@@ -1,46 +1,46 @@
 /* ============================================================
    BARISTA RECIPE TRAINER – style.css
-   Phong cách: Dark Mode cao cấp, tông Charcoal + Amber/Gold
+   Phong cách: Light Mode, tông kem sữa + nâu cà phê
    Responsive: Desktop, Tablet, Mobile
    ============================================================ */
 
 /* ---------- 1. CSS VARIABLES & DESIGN TOKENS ---------- */
 :root {
-  /* Màu nền chính */
-  --bg-primary:    #0d0d0d;
-  --bg-secondary:  #121212;
-  --bg-card:       #1a1a1a;
-  --bg-card-hover: #222222;
-  --bg-elevated:   #242424;
-  --bg-sidebar:    #111111;
+  /* Màu nền sáng */
+  --bg-primary:    #F8F5F0;
+  --bg-secondary:  #F8F5F0;
+  --bg-card:       #FFFFFF;
+  --bg-card-hover: #FCFAF7;
+  --bg-elevated:   #F3EEE8;
+  --bg-sidebar:    #FFFFFF;
 
-  /* Màu nhấn Amber/Gold */
-  --accent:        #d97706;
-  --accent-light:  #f59e0b;
-  --accent-dark:   #b45309;
-  --accent-glow:   rgba(217, 119, 6, 0.25);
-  --accent-subtle: rgba(217, 119, 6, 0.08);
+  /* Màu nhấn nâu cà phê */
+  --accent:        #8B4B2E;
+  --accent-light:  #754027;
+  --accent-dark:   #60311F;
+  --accent-glow:   rgba(139, 75, 46, 0.16);
+  --accent-subtle: rgba(139, 75, 46, 0.08);
 
   /* Màu văn bản */
-  --text-primary:   #f0ead6;
-  --text-secondary: #a8997a;
-  --text-muted:     #5a5243;
-  --text-on-accent: #1a0e00;
+  --text-primary:   #2C221E;
+  --text-secondary: #66564E;
+  --text-muted:     #82736A;
+  --text-on-accent: #FFFFFF;
 
   /* Màu trạng thái */
-  --success:      #22c55e;
-  --success-bg:   rgba(34, 197, 94, 0.1);
-  --error:        #ef4444;
-  --error-bg:     rgba(239, 68, 68, 0.1);
-  --warning:      #f59e0b;
-  --warning-bg:   rgba(245, 158, 11, 0.1);
-  --info:         #3b82f6;
-  --info-bg:      rgba(59, 130, 246, 0.1);
+  --success:      #237A45;
+  --success-bg:   rgba(35, 122, 69, 0.1);
+  --error:        #C0392B;
+  --error-bg:     rgba(192, 57, 43, 0.08);
+  --warning:      #8A5A10;
+  --warning-bg:   rgba(180, 111, 35, 0.1);
+  --info:         #28618F;
+  --info-bg:      rgba(40, 97, 143, 0.08);
 
   /* Viền */
-  --border:         rgba(217, 119, 6, 0.15);
-  --border-subtle:  rgba(255, 255, 255, 0.05);
-  --border-strong:  rgba(217, 119, 6, 0.4);
+  --border:         rgba(112, 75, 54, 0.16);
+  --border-subtle:  rgba(112, 75, 54, 0.1);
+  --border-strong:  rgba(139, 75, 46, 0.38);
 
   /* Khoảng cách & Bo góc */
   --radius-sm:  6px;
@@ -50,10 +50,10 @@
   --radius-full: 9999px;
 
   /* Bóng đổ */
-  --shadow-sm:  0 1px 3px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3);
-  --shadow-md:  0 4px 16px rgba(0,0,0,0.6);
-  --shadow-lg:  0 10px 40px rgba(0,0,0,0.8);
-  --shadow-glow: 0 0 20px rgba(217, 119, 6, 0.3);
+  --shadow-sm:  0 1px 3px rgba(60, 39, 27, 0.08), 0 1px 2px rgba(60, 39, 27, 0.05);
+  --shadow-md:  0 4px 16px rgba(60, 39, 27, 0.1);
+  --shadow-lg:  0 10px 40px rgba(60, 39, 27, 0.16);
+  --shadow-glow: 0 0 20px rgba(139, 75, 46, 0.12);
 
   /* Hiệu ứng chuyển cảnh */
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -135,43 +135,28 @@ ul { list-style: none; }
 
 .sidebar-brand {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
-  padding: 24px 20px;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--border);
 }
 
-.brand-icon {
-  font-size: 2rem;
-  filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.6));
-  animation: steam-rise 3s ease-in-out infinite;
-}
-
-@keyframes steam-rise {
-  0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 8px rgba(217,119,6,0.6)); }
-  50% { transform: translateY(-4px); filter: drop-shadow(0 0 15px rgba(217,119,6,0.9)); }
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
+.brand-logo {
+  display: block;
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+  border-radius: 50%;
 }
 
 .brand-name {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 700;
   color: var(--accent-light);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
   letter-spacing: 0.5px;
-}
-
-.brand-sub {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-weight: 500;
 }
 
 /* Nav Items */
@@ -208,10 +193,10 @@ ul { list-style: none; }
 }
 
 .nav-item.active {
-  background: linear-gradient(135deg, rgba(217,119,6,0.2), rgba(245,158,11,0.1));
+  background: linear-gradient(135deg, rgba(139,75,46,0.14), rgba(166,101,63,0.08));
   color: var(--accent-light);
   border-color: var(--border-strong);
-  box-shadow: inset 0 0 20px rgba(217,119,6,0.05), var(--shadow-glow);
+  box-shadow: inset 0 0 20px rgba(139,75,46,0.04), var(--shadow-glow);
 }
 
 .nav-icon {
@@ -241,7 +226,7 @@ ul { list-style: none; }
 .sidebar-score {
   margin: 12px;
   padding: 16px;
-  background: linear-gradient(135deg, rgba(217,119,6,0.1), rgba(245,158,11,0.05));
+  background: linear-gradient(135deg, rgba(139,75,46,0.1), rgba(166,101,63,0.05));
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
   text-align: center;
@@ -260,7 +245,7 @@ ul { list-style: none; }
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--accent-light);
-  text-shadow: 0 0 20px rgba(217,119,6,0.5);
+  text-shadow: 0 0 20px rgba(139,75,46,0.18);
   line-height: 1;
 }
 
@@ -321,6 +306,12 @@ ul { list-style: none; }
   font-weight: 700;
   color: var(--accent-light);
   font-size: 1rem;
+}
+
+.mobile-brand-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .mobile-score {
@@ -396,21 +387,21 @@ ul { list-style: none; }
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
   color: var(--text-on-accent);
   border: none;
   border-radius: var(--radius-md);
   font-weight: 700;
   font-size: 0.9rem;
   transition: all var(--transition);
-  box-shadow: 0 4px 15px rgba(217,119,6,0.3);
+  box-shadow: 0 4px 15px rgba(96,49,31,0.18);
   white-space: nowrap;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(217,119,6,0.5);
-  background: linear-gradient(135deg, var(--accent-light), var(--accent));
+  box-shadow: 0 6px 25px rgba(96,49,31,0.24);
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
 }
 
 .btn-primary:active { transform: translateY(0); }
@@ -442,14 +433,14 @@ ul { list-style: none; }
   padding: 7px 14px;
   background: var(--error-bg);
   color: var(--error);
-  border: 1px solid rgba(239,68,68,0.3);
+  border: 1px solid rgba(220,38,38,0.25);
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
   font-weight: 600;
   transition: all var(--transition);
 }
 
-.btn-danger:hover { background: rgba(239,68,68,0.2); }
+.btn-danger:hover { background: rgba(220,38,38,0.12); }
 
 .btn-add-item {
   display: inline-flex;
@@ -467,7 +458,7 @@ ul { list-style: none; }
 }
 
 .btn-add-item:hover {
-  background: rgba(217,119,6,0.15);
+  background: rgba(139,75,46,0.12);
   border-style: solid;
 }
 
@@ -476,21 +467,21 @@ ul { list-style: none; }
   align-items: center;
   gap: 10px;
   padding: 14px 36px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
   color: var(--text-on-accent);
   border: none;
   border-radius: var(--radius-xl);
   font-size: 1.1rem;
   font-weight: 800;
   transition: all var(--transition);
-  box-shadow: 0 8px 30px rgba(217,119,6,0.4);
+  box-shadow: 0 8px 30px rgba(96,49,31,0.2);
   margin-top: 24px;
   letter-spacing: 0.5px;
 }
 
 .btn-game-start:hover {
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 12px 40px rgba(217,119,6,0.6);
+  box-shadow: 0 12px 40px rgba(96,49,31,0.26);
 }
 
 .btn-game-submit {
@@ -520,14 +511,14 @@ ul { list-style: none; }
   padding: 8px 16px;
   background: var(--warning-bg);
   color: var(--warning);
-  border: 1px solid rgba(245,158,11,0.3);
+  border: 1px solid rgba(180,111,35,0.28);
   border-radius: var(--radius-md);
   font-size: 0.85rem;
   font-weight: 600;
   transition: all var(--transition);
 }
 
-.btn-hint:hover { background: rgba(245,158,11,0.2); }
+.btn-hint:hover { background: rgba(180,111,35,0.14); }
 .btn-hint:disabled {
   opacity: 0.4;
   cursor: not-allowed;
@@ -601,10 +592,10 @@ ul { list-style: none; }
 }
 
 .filter-btn.active {
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
   color: var(--text-on-accent);
   border-color: transparent;
-  box-shadow: 0 2px 10px rgba(217,119,6,0.35);
+  box-shadow: 0 2px 10px rgba(96,49,31,0.18);
 }
 
 /* ---------- 6. STATS ROW ---------- */
@@ -704,7 +695,7 @@ ul { list-style: none; }
 .recipe-icon {
   font-size: 2.2rem;
   line-height: 1;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 2px 4px rgba(60,39,27,0.12));
 }
 
 .recipe-category-badge {
@@ -716,10 +707,10 @@ ul { list-style: none; }
   text-transform: uppercase;
 }
 
-.badge-coffee  { background: rgba(120,53,15,0.4);  color: #fbbf24; border: 1px solid rgba(120,53,15,0.6); }
-.badge-tea     { background: rgba(6,95,70,0.4);    color: #34d399; border: 1px solid rgba(6,95,70,0.6); }
-.badge-mocktail{ background: rgba(88,28,135,0.4);  color: #c084fc; border: 1px solid rgba(88,28,135,0.6); }
-.badge-smoothie{ background: rgba(7,89,133,0.4);   color: #38bdf8; border: 1px solid rgba(7,89,133,0.6); }
+.badge-coffee  { background: #F5E9E0; color: #754027; border: 1px solid #E5CDBD; }
+.badge-tea     { background: #E8F3EC; color: #246B47; border: 1px solid #C5E0CF; }
+.badge-mocktail{ background: #F1EAF7; color: #69428A; border: 1px solid #DDCBEA; }
+.badge-smoothie{ background: #E8F2F7; color: #28618F; border: 1px solid #C8DFEB; }
 
 .recipe-card-name {
   font-family: var(--font-display);
@@ -814,7 +805,7 @@ ul { list-style: none; }
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(44,34,30,0.42);
   backdrop-filter: blur(6px);
   z-index: 200;
   display: flex;
@@ -840,7 +831,7 @@ ul { list-style: none; }
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-lg), 0 0 40px rgba(217,119,6,0.15);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(139,75,46,0.1);
   transform: translateY(20px);
   transition: transform var(--transition);
 }
@@ -942,7 +933,7 @@ ul { list-style: none; }
 
 .form-group select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23d97706' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B4B2E' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
   padding-right: 36px;
@@ -982,7 +973,7 @@ ul { list-style: none; }
 
 .dynamic-row .remove-row {
   background: var(--error-bg);
-  border: 1px solid rgba(239,68,68,0.3);
+  border: 1px solid rgba(192,57,43,0.25);
   color: var(--error);
   border-radius: var(--radius-sm);
   width: 28px;
@@ -995,7 +986,7 @@ ul { list-style: none; }
   transition: all var(--transition);
 }
 
-.dynamic-row .remove-row:hover { background: rgba(239,68,68,0.25); }
+.dynamic-row .remove-row:hover { background: rgba(192,57,43,0.12); }
 
 /* ---------- 11. SMART IMPORT TAB ---------- */
 .import-container {
@@ -1019,7 +1010,7 @@ ul { list-style: none; }
 .dropzone.dragover {
   background: var(--accent-subtle);
   border-color: var(--accent);
-  box-shadow: 0 0 30px rgba(217,119,6,0.2);
+  box-shadow: 0 0 30px rgba(139,75,46,0.12);
 }
 
 .dropzone.dragover { transform: scale(1.01); }
@@ -1144,7 +1135,7 @@ ul { list-style: none; }
 .preview-header {
   padding: 20px 24px;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(135deg, rgba(217,119,6,0.1), transparent);
+  background: linear-gradient(135deg, rgba(139,75,46,0.1), transparent);
 }
 
 .preview-header h3 {
@@ -1218,6 +1209,211 @@ ul { list-style: none; }
   font-weight: 600;
 }
 
+/* ---------- 11A. TEA BREWING RECIPES ---------- */
+.brewing-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: 18px;
+}
+
+.brewing-settings,
+.brewing-timer-card,
+.brewing-recipes-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.brewing-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.brewing-settings h2,
+.brewing-recipes-heading h2 {
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.brewing-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.brewing-settings input[type="number"],
+.brewing-settings input[type="text"],
+.brewing-settings textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 12px;
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font: inherit;
+}
+
+.brewing-settings textarea {
+  resize: vertical;
+}
+
+.brewing-settings input:focus,
+.brewing-settings textarea:focus {
+  outline: none;
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.brewing-form-actions,
+.brewing-recipe-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.brewing-form-actions [hidden] {
+  display: none;
+}
+
+.brewing-timer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(145deg, #FFFFFF, #F7F0E9);
+}
+
+.brewing-timer-card h2 {
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin-bottom: 6px;
+}
+
+.brewing-tea-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.brewing-timer-label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.brewing-countdown {
+  margin: 8px 0;
+  color: var(--accent-dark);
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 5rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.brewing-status {
+  min-height: 24px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.brewing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.brewing-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+.brewing-recipes-section {
+  grid-column: 1 / -1;
+  padding: 24px;
+}
+
+.brewing-recipes-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.brewing-recipes-heading p,
+.brewing-recipe-card p {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.brewing-recipe-count {
+  flex-shrink: 0;
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  background: var(--accent-subtle);
+  color: var(--accent-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.brewing-recipes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.brewing-recipe-card {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.brewing-recipe-card.selected {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-glow);
+}
+
+.brewing-recipe-card h3 {
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.brewing-recipe-steps {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+  padding-left: 20px;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.brewing-empty {
+  grid-column: 1 / -1;
+  padding: 28px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
 /* ---------- 12. GAME ARENA ---------- */
 .game-arena {
   background: var(--bg-card);
@@ -1238,7 +1434,7 @@ ul { list-style: none; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: radial-gradient(ellipse at center, rgba(217,119,6,0.05) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(139,75,46,0.06) 0%, transparent 70%);
 }
 
 .game-start-content {
@@ -1308,7 +1504,7 @@ ul { list-style: none; }
 
 .challenge-badge--hard {
   background: var(--error-bg);
-  border-color: rgba(239,68,68,0.3);
+  border-color: rgba(192,57,43,0.3);
   color: var(--error);
 }
 
@@ -1317,7 +1513,7 @@ ul { list-style: none; }
   font-size: 2.8rem;
   font-weight: 700;
   color: var(--text-primary);
-  text-shadow: 0 0 30px rgba(217,119,6,0.3);
+  text-shadow: 0 0 30px rgba(139,75,46,0.12);
   margin-bottom: 8px;
   line-height: 1.2;
 }
@@ -1337,7 +1533,7 @@ ul { list-style: none; }
 
 .hint-display {
   background: var(--warning-bg);
-  border: 1px solid rgba(245,158,11,0.3);
+  border: 1px solid rgba(180,111,35,0.28);
   border-radius: var(--radius-md);
   padding: 12px 16px;
   font-size: 0.88rem;
@@ -1380,10 +1576,10 @@ ul { list-style: none; }
 }
 
 .ingredient-card.selected {
-  background: linear-gradient(135deg, rgba(217,119,6,0.2), rgba(245,158,11,0.1));
+  background: linear-gradient(135deg, rgba(139,75,46,0.14), rgba(166,101,63,0.08));
   border-color: var(--accent);
-  box-shadow: 0 0 15px rgba(217,119,6,0.3);
-  color: var(--accent-light);
+  box-shadow: 0 0 15px rgba(139,75,46,0.14);
+  color: var(--accent-dark);
   transform: translateY(-2px);
 }
 
@@ -1528,7 +1724,7 @@ ul { list-style: none; }
   font-weight: 700;
 }
 
-.result-title.success { color: var(--success); text-shadow: 0 0 20px rgba(34,197,94,0.4); }
+.result-title.success { color: var(--success); text-shadow: 0 0 20px rgba(35,122,69,0.16); }
 .result-title.failure { color: var(--error); }
 .result-title.partial { color: var(--warning); }
 
@@ -1598,7 +1794,7 @@ ul { list-style: none; }
 .detail-hero {
   text-align: center;
   padding: 20px;
-  background: radial-gradient(ellipse at center, rgba(217,119,6,0.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(139,75,46,0.08) 0%, transparent 70%);
   border-radius: var(--radius-md);
 }
 
@@ -1795,7 +1991,7 @@ ul { list-style: none; }
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(44,34,30,0.35);
   backdrop-filter: blur(3px);
   z-index: 99;
 }
@@ -1836,6 +2032,10 @@ ul { list-style: none; }
   .stats-row { grid-template-columns: 1fr 1fr; }
 
   .recipes-grid { grid-template-columns: 1fr; }
+
+  .brewing-layout { grid-template-columns: 1fr; }
+
+  .brewing-recipes-section { grid-column: auto; }
 
   .challenge-name { font-size: 2rem; }
 
@@ -1882,19 +2082,19 @@ ul { list-style: none; }
   justify-content: space-between;
   margin-bottom: 18px;
   padding: 12px 18px;
-  background: linear-gradient(90deg, rgba(217, 119, 6, 0.15), rgba(245, 158, 11, 0.03));
+  background: linear-gradient(90deg, rgba(139, 75, 46, 0.12), rgba(166, 101, 63, 0.03));
   border-left: 4px solid var(--accent);
   border-radius: var(--radius-sm);
 }
 
 .menu-group-header--tea {
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.03));
-  border-left-color: #10b981;
+  background: linear-gradient(90deg, rgba(35, 122, 69, 0.12), rgba(35, 122, 69, 0.03));
+  border-left-color: #237A45;
 }
 
 .menu-group-header--other {
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.15), rgba(124, 58, 237, 0.03));
-  border-left-color: #8b5cf6;
+  background: linear-gradient(90deg, rgba(105, 66, 138, 0.12), rgba(105, 66, 138, 0.03));
+  border-left-color: #69428A;
 }
 
 .menu-group-title {
@@ -1952,9 +2152,9 @@ ul { list-style: none; }
 }
 
 .btn-card-train--hard:hover {
-  background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
-  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(192, 57, 43, 0.1);
+  color: #A93226;
+  border-color: rgba(192, 57, 43, 0.3);
 }
 
 /* Game Scope Selector */
@@ -2002,6 +2202,5 @@ ul { list-style: none; }
 .scope-pill.active {
   background: var(--accent);
   color: var(--text-on-accent);
-  box-shadow: 0 2px 10px rgba(217, 119, 6, 0.4);
+  box-shadow: 0 2px 10px rgba(96, 49, 31, 0.18);
 }
-

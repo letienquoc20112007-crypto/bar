@@ -94,11 +94,8 @@
     <!-- Sidebar / Navigation -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-brand">
-        <div class="brand-icon">☕</div>
-        <div class="brand-text">
-          <span class="brand-name">Barista</span>
-          <span class="brand-sub">Recipe Trainer</span>
-        </div>
+        <img class="brand-logo" src="assets/drunkcoffee-logo.png" alt="Drunkcoffee" />
+        <span class="brand-name">Drunkcoffee</span>
       </div>
 
       <nav class="sidebar-nav" role="navigation" aria-label="Điều hướng chính">
@@ -109,6 +106,10 @@
         <button class="nav-item" id="nav-import" data-tab="import" aria-selected="false">
           <span class="nav-icon">📁</span>
           <span class="nav-label">Smart Import</span>
+        </button>
+        <button class="nav-item" id="nav-brewing" data-tab="brewing" aria-selected="false">
+          <span class="nav-icon">🍵</span>
+          <span class="nav-label">Ủ trà</span>
         </button>
         <button class="nav-item" id="nav-game1" data-tab="game1" aria-selected="false">
           <span class="nav-icon">🎯</span>
@@ -138,7 +139,8 @@
       <button class="hamburger" id="hamburger-btn" aria-label="Mở menu">
         <span></span><span></span><span></span>
       </button>
-      <div class="mobile-brand">☕ Barista Trainer</div>
+      <img class="mobile-brand-logo" src="assets/drunkcoffee-logo.png" alt="" />
+      <div class="mobile-brand">Drunkcoffee</div>
       <div class="mobile-score">🏆 <span id="mobile-score">0</span></div>
     </header>
 
@@ -149,7 +151,7 @@
       <section class="tab-section active" id="tab-dashboard" aria-labelledby="nav-dashboard">
         <div class="section-header">
           <div class="section-title-group">
-            <h1 class="section-title">📚 Thư Viện Công Thức</h1>
+            <h1 class="section-title">Thư viện DrunkCoffee</h1>
             <p class="section-subtitle">Quản lý và khám phá bộ sưu tập công thức pha chế của bạn</p>
           </div>
           <div class="section-actions-group">
@@ -278,7 +280,86 @@
         </div>
       </section>
 
-      <!-- ===== TAB 3: GAME 1 – SELECT & MIX ===== -->
+      <!-- ===== TAB 3: TEA BREWING RECIPES ===== -->
+      <section class="tab-section" id="tab-brewing" aria-labelledby="nav-brewing">
+        <div class="section-header">
+          <div class="section-title-group">
+            <h1 class="section-title">🍵 Công Thức Ủ Trà</h1>
+            <p class="section-subtitle">Lưu và tra cứu định lượng, nhiệt độ, thời gian ủ theo công thức của quán</p>
+          </div>
+        </div>
+
+        <div class="brewing-layout">
+          <section class="brewing-settings" id="brewing-settings-form" aria-label="Thêm công thức ủ trà">
+            <h2 id="brewing-form-title">Thêm công thức ủ trà</h2>
+            <div class="form-group">
+              <label for="brewing-name">Tên công thức *</label>
+              <input type="text" id="brewing-name" maxlength="100" placeholder="Ví dụ: Ủ trà lài" />
+            </div>
+            <div class="brewing-inputs">
+              <div class="form-group">
+                <label for="brewing-tea-type">Loại trà *</label>
+                <input type="text" id="brewing-tea-type" maxlength="100" placeholder="Ví dụ: Trà lài" />
+              </div>
+              <div class="form-group">
+                <label for="brewing-tea-amount">Lượng trà (g) *</label>
+                <input type="number" id="brewing-tea-amount" min="0.1" step="0.1" placeholder="g" />
+              </div>
+              <div class="form-group">
+                <label for="brewing-water-amount">Lượng nước (ml) *</label>
+                <input type="number" id="brewing-water-amount" min="1" step="1" placeholder="ml" />
+              </div>
+              <div class="form-group">
+                <label for="brewing-temperature">Nhiệt độ nước (°C) *</label>
+                <input type="number" id="brewing-temperature" min="1" max="100" step="1" placeholder="°C" />
+              </div>
+              <div class="form-group">
+                <label for="brewing-minutes">Thời gian ủ (phút) *</label>
+                <input type="number" id="brewing-minutes" min="0" max="1440" step="1" value="3" />
+              </div>
+              <div class="form-group">
+                <label for="brewing-seconds">Thời gian ủ (giây)</label>
+                <input type="number" id="brewing-seconds" min="0" max="59" step="1" value="0" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="brewing-steps">Các bước ủ trà</label>
+              <textarea id="brewing-steps" rows="4" placeholder="Mỗi bước viết trên một dòng"></textarea>
+            </div>
+            <div class="brewing-form-actions">
+              <button class="btn-primary" id="brewing-save-btn" type="button">💾 Lưu công thức</button>
+              <button class="btn-secondary" id="brewing-cancel-edit-btn" type="button" hidden>Hủy sửa</button>
+            </div>
+          </section>
+
+          <section class="brewing-timer-card" aria-label="Đồng hồ ủ trà">
+            <div class="brewing-tea-icon" aria-hidden="true">🫖</div>
+            <h2 id="brewing-selected-name">Chọn công thức để bắt đầu</h2>
+            <p class="brewing-status" id="brewing-selected-details">Chọn một công thức bên dưới để xem tỉ lệ trà, nước và nhiệt độ.</p>
+            <p class="brewing-timer-label">Thời gian còn lại</p>
+            <div class="brewing-countdown" id="brewing-countdown" role="timer" aria-live="off">00:00</div>
+            <p class="brewing-status" id="brewing-status" role="status" aria-live="polite">Sẵn sàng ủ trà</p>
+            <div class="brewing-actions">
+              <button class="btn-primary" id="brewing-start-btn" type="button" disabled>▶ Bắt đầu ủ</button>
+              <button class="btn-secondary" id="brewing-pause-btn" type="button" disabled>⏸ Tạm dừng</button>
+              <button class="btn-secondary" id="brewing-reset-btn" type="button">↺ Đặt lại</button>
+            </div>
+          </section>
+
+          <section class="brewing-recipes-section" aria-label="Danh sách công thức ủ trà">
+            <div class="brewing-recipes-heading">
+              <div>
+                <h2>Công thức đã lưu</h2>
+                <p>Chọn công thức để xem hướng dẫn và bắt đầu canh giờ ủ.</p>
+              </div>
+              <span class="brewing-recipe-count" id="brewing-recipe-count">0 công thức</span>
+            </div>
+            <div class="brewing-recipes-list" id="brewing-recipes-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===== TAB 4: GAME 1 – SELECT & MIX ===== -->
       <section class="tab-section" id="tab-game1" aria-labelledby="nav-game1">
         <div class="section-header">
           <div class="section-title-group">
