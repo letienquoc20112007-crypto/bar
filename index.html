@@ -13,6 +13,37 @@
 </head>
 <body>
 
+  <!-- ========== BARISTA ACCESS GATE ========== -->
+  <div id="barista-auth-gate" role="dialog" aria-modal="true" aria-labelledby="barista-auth-title">
+    <div class="barista-auth-card">
+      <div class="barista-auth-brand" aria-hidden="true">☕</div>
+      <p class="barista-auth-eyebrow">BARISTA ACCESS GATE</p>
+      <h1 id="barista-auth-title">Xác nhận vào ca</h1>
+      <p class="barista-auth-description">Vui lòng xác nhận thông tin thành viên quán để tiếp tục.</p>
+
+      <form id="barista-auth-form" class="barista-auth-form" novalidate>
+        <label for="barista-auth-name">Tên thành viên quán</label>
+        <input id="barista-auth-name" name="memberName" type="text" placeholder="Ví dụ: Nguyễn Văn A" autocomplete="name" required>
+
+        <label for="barista-auth-code">Mã ID nội bộ</label>
+        <div class="barista-auth-code-field">
+          <input id="barista-auth-code" name="shopCode" type="password" placeholder="Nhập mã ID quán" autocomplete="off" required>
+          <button id="barista-auth-toggle-code" class="barista-auth-visibility" type="button" aria-label="Hiện mã ID" aria-pressed="false">👁</button>
+        </div>
+
+        <p id="barista-auth-error" class="barista-auth-message" role="alert" aria-live="assertive" hidden></p>
+        <button class="barista-auth-submit" type="submit">Xác Nhận Vào Ca</button>
+        <p class="barista-auth-code-hint">Mã ID quán: <strong>ntp0102</strong></p>
+      </form>
+    </div>
+  </div>
+  <aside id="barista-auth-badge" aria-label="Thông tin ca trực" hidden>
+    <span class="barista-auth-badge-dot" aria-hidden="true"></span>
+    <span class="barista-auth-status">Đang trực:</span>
+    <span id="barista-auth-badge-name"></span>
+    <button id="barista-auth-logout" type="button">Đăng xuất / Đổi ca</button>
+  </aside>
+
   <!-- ========== OVERLAY LOADING ========== -->
   <div id="loading-overlay" class="loading-overlay">
     <div class="loader-content">
@@ -108,8 +139,8 @@
           <span class="nav-label">Smart Import</span>
         </button>
         <button class="nav-item" id="nav-brewing" data-tab="brewing" aria-selected="false">
-          <span class="nav-icon">🍵</span>
-          <span class="nav-label">Ủ trà</span>
+          <span class="nav-icon">🫖</span>
+          <span class="nav-label">Ủ</span>
         </button>
         <button class="nav-item" id="nav-game1" data-tab="game1" aria-selected="false">
           <span class="nav-icon">🎯</span>
@@ -280,82 +311,81 @@
         </div>
       </section>
 
-      <!-- ===== TAB 3: TEA BREWING RECIPES ===== -->
+      <!-- ===== TAB 3: BREWING RECIPES ===== -->
       <section class="tab-section" id="tab-brewing" aria-labelledby="nav-brewing">
-        <div class="section-header">
-          <div class="section-title-group">
-            <h1 class="section-title">🍵 Công Thức Ủ Trà</h1>
-            <p class="section-subtitle">Lưu và tra cứu định lượng, nhiệt độ, thời gian ủ theo công thức của quán</p>
+        <div class="brewing-station">
+          <div class="brewing-station-header">
+            <div>
+              <h1>🫖 Trạm Ủ</h1>
+              <p>Chọn công thức, theo dõi quy trình và canh thời gian ủ.</p>
+            </div>
+            <button class="brewing-station-add" id="brewing-add-btn" type="button">＋ Thêm công thức</button>
           </div>
-        </div>
 
-        <div class="brewing-layout">
-          <section class="brewing-settings" id="brewing-settings-form" aria-label="Thêm công thức ủ trà">
-            <h2 id="brewing-form-title">Thêm công thức ủ trà</h2>
-            <div class="form-group">
-              <label for="brewing-name">Tên công thức *</label>
-              <input type="text" id="brewing-name" maxlength="100" placeholder="Ví dụ: Ủ trà lài" />
-            </div>
-            <div class="brewing-inputs">
-              <div class="form-group">
-                <label for="brewing-tea-type">Loại trà *</label>
-                <input type="text" id="brewing-tea-type" maxlength="100" placeholder="Ví dụ: Trà lài" />
-              </div>
-              <div class="form-group">
-                <label for="brewing-tea-amount">Lượng trà (g) *</label>
-                <input type="number" id="brewing-tea-amount" min="0.1" step="0.1" placeholder="g" />
-              </div>
-              <div class="form-group">
-                <label for="brewing-water-amount">Lượng nước (ml) *</label>
-                <input type="number" id="brewing-water-amount" min="1" step="1" placeholder="ml" />
-              </div>
-              <div class="form-group">
-                <label for="brewing-temperature">Nhiệt độ nước (°C) *</label>
-                <input type="number" id="brewing-temperature" min="1" max="100" step="1" placeholder="°C" />
-              </div>
-              <div class="form-group">
-                <label for="brewing-minutes">Thời gian ủ (phút) *</label>
-                <input type="number" id="brewing-minutes" min="0" max="1440" step="1" value="3" />
-              </div>
-              <div class="form-group">
-                <label for="brewing-seconds">Thời gian ủ (giây)</label>
-                <input type="number" id="brewing-seconds" min="0" max="59" step="1" value="0" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="brewing-steps">Các bước ủ trà</label>
-              <textarea id="brewing-steps" rows="4" placeholder="Mỗi bước viết trên một dòng"></textarea>
-            </div>
-            <div class="brewing-form-actions">
-              <button class="btn-primary" id="brewing-save-btn" type="button">💾 Lưu công thức</button>
-              <button class="btn-secondary" id="brewing-cancel-edit-btn" type="button" hidden>Hủy sửa</button>
-            </div>
-          </section>
+          <nav class="brewing-recipe-tabs" id="brewing-recipes-list" aria-label="Danh sách công thức ủ"></nav>
+          <p class="brewing-station-status" id="brewing-status" role="status" aria-live="polite" hidden></p>
 
-          <section class="brewing-timer-card" aria-label="Đồng hồ ủ trà">
-            <div class="brewing-tea-icon" aria-hidden="true">🫖</div>
-            <h2 id="brewing-selected-name">Chọn công thức để bắt đầu</h2>
-            <p class="brewing-status" id="brewing-selected-details">Chọn một công thức bên dưới để xem tỉ lệ trà, nước và nhiệt độ.</p>
-            <p class="brewing-timer-label">Thời gian còn lại</p>
-            <div class="brewing-countdown" id="brewing-countdown" role="timer" aria-live="off">00:00</div>
-            <p class="brewing-status" id="brewing-status" role="status" aria-live="polite">Sẵn sàng ủ trà</p>
-            <div class="brewing-actions">
-              <button class="btn-primary" id="brewing-start-btn" type="button" disabled>▶ Bắt đầu ủ</button>
-              <button class="btn-secondary" id="brewing-pause-btn" type="button" disabled>⏸ Tạm dừng</button>
-              <button class="btn-secondary" id="brewing-reset-btn" type="button">↺ Đặt lại</button>
-            </div>
-          </section>
-
-          <section class="brewing-recipes-section" aria-label="Danh sách công thức ủ trà">
-            <div class="brewing-recipes-heading">
-              <div>
-                <h2>Công thức đã lưu</h2>
-                <p>Chọn công thức để xem hướng dẫn và bắt đầu canh giờ ủ.</p>
+          <div class="brewing-station-layout">
+            <section class="brewing-station-panel brewing-station-controls" aria-label="Thông số và đồng hồ ủ">
+              <div class="brewing-selected-header">
+                <h2 id="brewing-selected-name">Chọn công thức</h2>
+                <div class="brewing-selected-actions">
+                  <button class="brewing-station-small-btn" id="brewing-edit-btn" type="button" hidden>Sửa</button>
+                  <button class="brewing-station-small-btn brewing-station-delete" id="brewing-delete-btn" type="button" hidden>Xóa</button>
+                </div>
               </div>
-              <span class="brewing-recipe-count" id="brewing-recipe-count">0 công thức</span>
-            </div>
-            <div class="brewing-recipes-list" id="brewing-recipes-list"></div>
-          </section>
+
+              <div class="brewing-station-stats">
+                <div class="brewing-station-stat"><span>Nguyên liệu</span><strong><span id="brewing-stat-tea">—</span> <span id="brewing-stat-tea-unit">g</span></strong></div>
+                <div class="brewing-station-stat"><span id="brewing-stat-water-label">Lượng nước</span><strong><span id="brewing-stat-water">—</span> <span id="brewing-stat-water-unit">ml</span></strong></div>
+                <div class="brewing-station-stat"><span>Nhiệt độ</span><strong><span id="brewing-stat-temperature">—</span> <span id="brewing-stat-temperature-unit">°C</span></strong></div>
+                <div class="brewing-station-stat"><span id="brewing-stat-yield-label">Thành phẩm thu về</span><strong><span id="brewing-stat-yield">—</span> <span id="brewing-stat-yield-unit">ml</span></strong></div>
+              </div>
+
+              <div class="brewing-station-timer">
+                <svg class="brewing-ring" viewBox="0 0 220 220" role="img" aria-label="Đồng hồ đếm ngược">
+                  <circle class="brewing-ring-track" cx="110" cy="110" r="94"></circle>
+                  <circle class="brewing-ring-progress" id="brewing-ring-progress" cx="110" cy="110" r="94"></circle>
+                  <text class="brewing-ring-clock" id="brewing-countdown" x="110" y="110">10:00</text>
+                </svg>
+                <p class="brewing-timer-label" id="brewing-timer-label">Sẵn sàng</p>
+                <div class="brewing-station-timer-actions">
+                  <button class="brewing-station-start" id="brewing-start-btn" type="button">▶ Bắt đầu</button>
+                  <button class="brewing-station-reset" id="brewing-reset-btn" type="button">↺ Đặt lại</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="brewing-station-panel brewing-station-sop" aria-label="Quy trình ủ chuẩn">
+              <h2 id="brewing-sop-title">Quy trình chuẩn · 5 bước</h2>
+              <ol class="brewing-sop-list" id="brewing-sop-list"></ol>
+              <p class="brewing-station-note" id="brewing-recipe-note" hidden></p>
+            </section>
+          </div>
+
+          <aside class="brewing-station-alert" role="note">CHÚ Ý: Khi thái thạch phải đeo găng tay, test thạch trước khi bán.</aside>
+
+          <div class="brewing-station-modal" id="brewing-modal" hidden>
+            <section class="brewing-station-modal-card" role="dialog" aria-modal="true" aria-labelledby="brewing-modal-title">
+              <div class="brewing-modal-header">
+                <h2 id="brewing-modal-title">Thêm công thức ủ</h2>
+                <button class="brewing-station-small-btn" id="brewing-modal-close" type="button" aria-label="Đóng">×</button>
+              </div>
+              <form id="brewing-form" class="brewing-station-form">
+                <label>Tên công thức<input id="brewing-name" name="name" type="text" maxlength="100" required autocomplete="off"></label>
+                <label>Nguyên liệu khô (g)<input id="brewing-tea-amount" name="teaAmount" type="number" min="0.1" step="any" required></label>
+                <label>Lượng nước (ml)<input id="brewing-water-amount" name="waterAmount" type="number" min="1" step="any" required></label>
+                <label>Nhiệt độ (°C)<input id="brewing-temperature" name="temperature" type="number" min="1" max="100" step="any" required></label>
+                <label>Thời gian ủ (phút)<input id="brewing-minutes" name="minutes" type="number" min="0.1" max="1440" step="any" required></label>
+                <label>Lượng thu về (ml)<input id="brewing-yield" name="yieldAmount" type="number" min="1" step="any" required></label>
+                <label class="brewing-form-notes">Ghi chú thêm<textarea id="brewing-notes" name="notes" rows="3" maxlength="1000"></textarea></label>
+                <div class="brewing-form-actions">
+                  <button class="brewing-station-reset" id="brewing-modal-cancel" type="button">Hủy</button>
+                  <button class="brewing-station-add" type="submit">💾 Lưu công thức</button>
+                </div>
+              </form>
+            </section>
+          </div>
         </div>
       </section>
 

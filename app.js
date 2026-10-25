@@ -22,10 +22,10 @@ const LS_KEY_STREAK = 'barista_streak';
 const LS_KEY_HISTORY = 'barista_import_history';
 const LS_KEY_VERSION = 'barista_recipes_ver';
 const LS_KEY_BREWING_RECIPES = 'barista_brewing_recipes';
-const CURRENT_DATA_VERSION = 3;
+const CURRENT_DATA_VERSION = 5;
 
 /**
- * Dữ liệu mẫu khởi tạo – bao gồm 17 công thức đầy đủ và chuẩn xác.
+ * Dữ liệu mẫu khởi tạo – bao gồm 20 công thức đầy đủ và chuẩn xác.
  * Chia thành 2 nhóm chính: ☕ CÀ PHÊ và 🍵 TRÀ (kèm Mocktail & Smoothie bổ sung).
  * Mỗi công thức: id, name, category, icon, tags[], ingredients[], steps[]
  * ingredients[]: { name: string, amount: string }
@@ -374,6 +374,81 @@ const SAMPLE_RECIPES = [
     ]
   },
 
+  {
+    id: 'r_tea_danh_vang_buoi_leo',
+    name: 'Trà Dành Vàng (Bưởi & Chanh Leo)',
+    category: 'Tea',
+    icon: '🍋',
+    tags: ['Trà Hoa', 'Bưởi', 'Chanh Leo'],
+    ingredients: [
+      { name: 'Nước cốt dành dành', amount: '100ml' },
+      { name: 'Nước lọc', amount: '50ml' },
+      { name: 'Mứt bưởi', amount: '10ml' },
+      { name: 'Mứt chanh leo', amount: '10ml' },
+      { name: 'Đường hoa quả', amount: '15ml' },
+      { name: 'Cốt chanh', amount: '5ml' },
+      { name: 'Hoa trang trí', amount: '1 bông' },
+      { name: 'Lát chanh', amount: '1 lát' },
+      { name: 'Đá viên', amount: '3 viên' }
+    ],
+    steps: [
+      'Rót 100ml nước cốt dành dành + 50ml nước lọc vào ly.',
+      'Thêm 10ml mứt bưởi + 10ml mứt chanh leo + 15ml đường hoa quả + 5ml cốt chanh, khuấy đều.',
+      '🧊 Cho 3 viên đá vào ly.',
+      '🌸 Trang trí với 1 bông hoa và 1 lát chanh.'
+    ]
+  },
+
+  {
+    id: 'r_tea_danh_hong_buoi_luu',
+    name: 'Trà Dành Hồng (Bưởi & Lựu)',
+    category: 'Tea',
+    icon: '🌺',
+    tags: ['Trà Hoa', 'Bưởi', 'Lựu'],
+    ingredients: [
+      { name: 'Nước cốt dành dành', amount: '100ml' },
+      { name: 'Nước lọc', amount: '50ml' },
+      { name: 'Mứt bưởi', amount: '10ml' },
+      { name: 'Mứt lựu', amount: '10ml' },
+      { name: 'Đường hoa quả', amount: '15ml' },
+      { name: 'Cốt chanh', amount: '5ml' },
+      { name: 'Hoa trang trí', amount: '1 bông' },
+      { name: 'Lát chanh', amount: '1 lát' },
+      { name: 'Đá viên', amount: '3 viên' }
+    ],
+    steps: [
+      'Rót 100ml nước cốt dành dành + 50ml nước lọc vào ly.',
+      'Thêm 10ml mứt bưởi + 10ml mứt lựu + 15ml đường hoa quả + 5ml cốt chanh, khuấy đều.',
+      '🧊 Cho 3 viên đá vào ly.',
+      '🌸 Trang trí với 1 bông hoa và 1 lát chanh.'
+    ]
+  },
+
+  {
+    id: 'r_tea_danh_dao_dao_leo',
+    name: 'Trà Dành Đào (Đào & Chanh Leo)',
+    category: 'Tea',
+    icon: '🍑',
+    tags: ['Trà Hoa', 'Đào', 'Chanh Leo'],
+    ingredients: [
+      { name: 'Nước cốt dành dành', amount: '100ml' },
+      { name: 'Nước lọc', amount: '50ml' },
+      { name: 'Mứt đào', amount: '10ml' },
+      { name: 'Mứt chanh leo', amount: '10ml' },
+      { name: 'Đường hoa quả', amount: '15ml' },
+      { name: 'Cốt chanh', amount: '5ml' },
+      { name: 'Hoa trang trí', amount: '1 bông' },
+      { name: 'Lát chanh', amount: '1 lát' },
+      { name: 'Đá viên', amount: '3 viên' }
+    ],
+    steps: [
+      'Rót 100ml nước cốt dành dành + 50ml nước lọc vào ly.',
+      'Thêm 10ml mứt đào + 10ml mứt chanh leo + 15ml đường hoa quả + 5ml cốt chanh, khuấy đều.',
+      '🧊 Cho 3 viên đá vào ly.',
+      '🌸 Trang trí với 1 bông hoa và 1 lát chanh.'
+    ]
+  },
+
   /* =========================================
      🍹 NHÓM 3: MOCKTAIL & SMOOTHIE (KHÁC)
      ========================================= */
@@ -471,7 +546,7 @@ function getRecipes() {
 
 /**
  * Tự động đồng bộ và nâng cấp dữ liệu:
- * Cập nhật các công thức mẫu mới nhất (v3), bảo toàn các công thức tự thêm của người dùng.
+ * Cập nhật các công thức mẫu mới nhất, bảo toàn các công thức tự thêm của người dùng.
  */
 function autoSyncRecipes() {
   const storedVer = parseInt(localStorage.getItem(LS_KEY_VERSION) || '0', 10);
@@ -924,8 +999,146 @@ function switchTab(tabName) {
 }
 
 /* =============================================================
-   PHẦN 5A: HỖ TRỢ Ủ TRÀ & ĐỒNG HỒ ĐẾM NGƯỢC
+   PHẦN 5A: HỖ TRỢ Ủ & ĐỒNG HỒ ĐẾM NGƯỢC
    ============================================================= */
+
+const DEFAULT_BREWING_RECIPES = [
+  {
+    id: 'default_atiso',
+    name: 'Trà ATISO',
+    teaAmount: 20,
+    waterAmount: 1140,
+    temperature: 90,
+    minutes: 10,
+    yieldAmount: 1100,
+    notes: ''
+  },
+  {
+    id: 'default_tra_danh_danh',
+    name: 'Trà Dành Dành',
+    teaAmount: 30,
+    waterAmount: 510,
+    temperature: 75,
+    minutes: 7,
+    yieldAmount: 600,
+    notes: '',
+    steps: [
+      'Chuẩn bị sẵn 150g đá trong bình/ca đã làm mát ở ngăn mát; không bỏ đá ra.',
+      'Làm nóng nồi ủ trà trước.',
+      'Cho 30g trà Dành Dành và 510g nước ở 75°C vào nồi, ủ 7 phút và mở vung. Không đậy vung, không ủ quá giờ hoặc quá nhiệt độ.',
+      'Ủ xong, cho ngay 150g đá vào trà để làm nguội; cân đá ngay để trà không bị chát.',
+      'Đổ cốt trà vào ca lớn, khuấy đều và đo định lượng thu về.',
+      'Định lượng thành phẩm thu về: 600ml.',
+      'Rót trà vào chai thủy tinh có nắp gài, dán tem chi tiết; để nguội rồi bảo quản trong ngăn mát tủ lạnh.'
+    ]
+  },
+  {
+    id: 'default_tra_shan_nguyen_la',
+    name: 'Trà Shan Nguyên Lá',
+    teaAmount: 50,
+    waterAmount: 770,
+    temperature: 95,
+    minutes: 12,
+    yieldAmount: 650,
+    notes: '',
+    steps: [
+      'Làm nóng nồi ủ trà trước.',
+      'Cho 50g trà Shan nguyên lá và 770g nước sôi ở 95°C vào nồi, đậy vung và ủ trong 12 phút.',
+      'Ủ xong, đổ cốt trà vào ca lớn, khuấy đều và đo định lượng thu về.',
+      'Định lượng thành phẩm thu về: 650ml.',
+      'Rót trà vào chai thủy tinh có nắp gài, dán tem chi tiết; để nguội rồi bảo quản trong ngăn mát tủ lạnh.'
+    ]
+  },
+  {
+    id: 'default_ca_phe_am_phin',
+    name: 'Cà phê ấm phin',
+    teaAmount: 200,
+    waterAmount: 930,
+    waterUnit: 'g',
+    temperature: 100,
+    minutes: 0.5,
+    yieldAmount: 650,
+    notes: '',
+    steps: [
+      'Tráng lõi đựng cà phê, nắp và ấm bằng nước nóng.',
+      'Xếp ấm ở dưới cùng, tiếp đến là nắp, trên cùng là lõi.',
+      'Đong 200g bột cà phê phin vào lõi.',
+      'Để cả ấm lên cân; rót 100g nước sôi vào nắp và 150g nước sôi vào lõi.',
+      'Chờ 30 giây để cà phê ngấm.',
+      'Nhấc lõi lên, lấy nắp ra và đổ nước từ nắp vào lõi.',
+      'Rót thêm 680g nước sôi 100°C vào lõi, đậy nắp và chờ cà phê chảy hết rồi gạn phin.',
+      'Thu về khoảng 650ml cốt.'
+    ]
+  },
+  {
+    id: 'default_coldbrew_3_lit',
+    name: 'Cold brew 3 lít',
+    teaAmount: 200,
+    waterAmount: 500,
+    waterUnit: 'g',
+    temperature: 80,
+    minutes: 1440,
+    yieldAmount: 3000,
+    yieldLabel: 'Dung tích bình',
+    notes: 'Đồng hồ 24 giờ tính từ khi bình đã châm đầy nước lọc và đưa vào ngăn mát. Bước ngâm đầu với 500g nước 80°C vẫn canh riêng 5 phút.',
+    steps: [
+      'Cân 100g hạt Rô Organic và 100g hạt Arabica vào một ca inox khô.',
+      'Đảm bảo máy xay sạch, trống và dùng đúng cỡ xay: Minh Khai xay cỡ 7; Hà Hồi xay cỡ 5. Cho 200g hạt cà phê vào máy xay.',
+      'Cân lại bột cà phê sau khi xay để đủ 200g; nếu thiếu thì xay thêm hạt.',
+      'Cho bột cà phê vào bình ủ 3 lít, rót 500g nước 80°C vào và đậy nắp nhưng không cài chốt. Ngâm 5 phút.',
+      'Châm thêm nước lọc đến đầy miệng bình, cài chốt, dán tem đầy đủ và để ngăn mát 24 giờ rồi lọc.'
+    ]
+  },
+  {
+    id: 'default_cheese_drunk_coffee',
+    name: 'Cheese Drunk coffee',
+    teaAmount: 100,
+    ingredientAmountLabel: '50g bột cheese + 50g bột kem',
+    waterAmount: 160,
+    waterLabel: 'Sữa tươi',
+    temperature: null,
+    minutes: 6,
+    yieldAmount: null,
+    notes: 'Đồng hồ đặt 6 phút làm mốc giữa khoảng 5–7 phút; dừng khi kem cheese sánh quyện và mịn.',
+    steps: [
+      'Đong 160ml sữa tươi, 50g bột cheese và 50g bột kem vào ca 500ml.',
+      'Dùng thìa khuấy kỹ nguyên liệu, vét cạnh ca để không còn bột dính vào thành ca.',
+      'Lắp một phới vào máy đánh trứng rồi đánh đều.',
+      'Đánh khoảng 5–7 phút đến khi tạo thành lớp kem cheese sánh quyện, mịn.',
+      'Bọc kỹ, dán tem chi tiết và bảo quản ngăn mát tủ lạnh trong 5 ngày.'
+    ]
+  },
+  {
+    id: 'default_thach_luu',
+    name: 'Thạch lựu',
+    teaAmount: 43,
+    ingredientAmountLabel: '1 gói bột thạch + 43g đường vàng',
+    waterAmount: 1060,
+    waterUnit: 'ml',
+    waterLabel: 'Trà + nước lọc',
+    temperature: null,
+    minutes: 1.5,
+    yieldAmount: null,
+    notes: 'Nguyên liệu: 60ml trà Dành Dành, 1000ml nước lọc, 50ml mứt lựu, 1 gói bột thạch và 43g đường vàng.',
+    steps: [
+      'Cho 60ml trà Dành Dành và 1000ml nước lọc vào nồi đun sôi.',
+      'Trộn đều bột rau câu và đường vàng trong một cái bát.',
+      'Hạ nhỏ lửa nồi nước đang đun; từ từ cho hỗn hợp bột vào nồi và khuấy đều để không bị vón cục.',
+      'Khuấy khoảng 1 phút, cho thêm 50ml mứt lựu, khuấy đều khoảng 30 giây rồi tắt bếp.',
+      'Đổ thạch vào khay inox sạch, để nguội rồi cất vào tủ lạnh; bảo quản được 5 ngày.'
+    ]
+  },
+  {
+    id: 'default_olong_lai',
+    name: 'Trà Ô long lài',
+    teaAmount: 40,
+    waterAmount: 1740,
+    temperature: 90,
+    minutes: 10,
+    yieldAmount: 1550,
+    notes: ''
+  }
+];
 
 const brewingTimerState = {
   intervalId: null,
@@ -933,39 +1146,75 @@ const brewingTimerState = {
   remainingMs: 0,
   status: 'idle',
   selectedRecipeId: null,
-  editingRecipeId: null
+  editingRecipeId: null,
+  completedSteps: new Set(),
+  lastFocusedElement: null
 };
 
-function getBrewingRecipes() {
-  const raw = localStorage.getItem(LS_KEY_BREWING_RECIPES);
-  if (!raw) return [];
+let brewingAudioContext = null;
 
+function getBrewingRecipes() {
+  let saved = [];
   try {
-    const recipes = JSON.parse(raw);
-    if (!Array.isArray(recipes)) throw new TypeError('Brewing recipes must be an array.');
-    return recipes.filter(recipe => recipe && typeof recipe.id === 'string' && typeof recipe.name === 'string');
+    const raw = localStorage.getItem(LS_KEY_BREWING_RECIPES);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) throw new TypeError('Brewing recipes must be an array.');
+      saved = parsed;
+    }
   } catch (error) {
-    console.error('Không thể đọc danh sách công thức ủ trà:', error);
-    return [];
+    console.error('Không thể đọc danh sách công thức ủ:', error);
+    showToast('Không thể đọc công thức ủ đã lưu.', 'error');
   }
+
+  const defaultIds = new Set(DEFAULT_BREWING_RECIPES.map(recipe => recipe.id));
+  const customRecipes = saved.flatMap(recipe => {
+    if (!recipe || typeof recipe.id !== 'string' || typeof recipe.name !== 'string' || defaultIds.has(recipe.id)) return [];
+
+    const teaAmount = Number(recipe.teaAmount);
+    const waterAmount = Number(recipe.waterAmount);
+    const temperature = Number(recipe.temperature);
+    const totalSeconds = recipe.minutes !== undefined
+      ? Number(recipe.minutes) * 60 + Number(recipe.seconds || 0)
+      : Number(recipe.steepMinutes) * 60;
+    const yieldAmount = Number(recipe.yieldAmount !== undefined
+      ? recipe.yieldAmount
+      : recipe.yieldMl !== undefined
+        ? recipe.yieldMl
+        : recipe.waterAmount);
+    if (![teaAmount, waterAmount, temperature, totalSeconds, yieldAmount].every(Number.isFinite) ||
+        teaAmount <= 0 || waterAmount <= 0 || temperature < 1 || temperature > 100 ||
+        totalSeconds <= 0 || totalSeconds > 86400 || yieldAmount <= 0) return [];
+
+    const legacyNotes = Array.isArray(recipe.steps) ? recipe.steps.filter(Boolean).join('\n') : '';
+    return [{
+      id: recipe.id,
+      name: recipe.name,
+      teaType: typeof recipe.teaType === 'string' ? recipe.teaType : recipe.name,
+      teaAmount,
+      waterAmount,
+      temperature,
+      minutes: totalSeconds / 60,
+      yieldAmount,
+      notes: typeof recipe.notes === 'string' ? recipe.notes : legacyNotes,
+      custom: true
+    }];
+  });
+
+  return [...DEFAULT_BREWING_RECIPES.map(recipe => ({ ...recipe, custom: false })), ...customRecipes];
 }
 
 function saveBrewingRecipes(recipes) {
   try {
-    localStorage.setItem(LS_KEY_BREWING_RECIPES, JSON.stringify(recipes));
+    const defaultIds = new Set(DEFAULT_BREWING_RECIPES.map(recipe => recipe.id));
+    const customRecipes = recipes.filter(recipe => recipe.custom !== false && !defaultIds.has(recipe.id));
+    localStorage.setItem(LS_KEY_BREWING_RECIPES, JSON.stringify(customRecipes));
     return true;
   } catch (error) {
-    console.error('Không thể lưu danh sách công thức ủ trà:', error);
-    showToast('Không thể lưu công thức ủ trà vào trình duyệt.', 'error');
+    console.error('Không thể lưu danh sách công thức ủ:', error);
+    showToast('Không thể lưu công thức ủ vào trình duyệt.', 'error');
     return false;
   }
-}
-
-function formatBrewingTime(milliseconds) {
-  const totalSeconds = Math.max(0, Math.ceil(milliseconds / 1000));
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
 function getSelectedBrewingRecipe() {
@@ -974,39 +1223,209 @@ function getSelectedBrewingRecipe() {
 
 function getBrewingDuration() {
   const recipe = getSelectedBrewingRecipe();
-  if (!recipe) return null;
-  return (recipe.minutes * 60 + recipe.seconds) * 1000;
+  return recipe ? recipe.minutes * 60000 : 0;
+}
+
+function formatBrewingTime(milliseconds) {
+  const totalSeconds = Math.max(0, Math.ceil(milliseconds / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  if (minutes >= 60) {
+    const hours = Math.floor(minutes / 60);
+    return `${String(hours).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  }
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
 function updateBrewingTimerDisplay() {
-  const recipe = getSelectedBrewingRecipe();
-  document.getElementById('brewing-countdown').textContent =
-    formatBrewingTime(brewingTimerState.remainingMs);
+  const duration = getBrewingDuration();
+  const progress = duration > 0 ? brewingTimerState.remainingMs / duration : 0;
+  const ring = document.getElementById('brewing-ring-progress');
+  const circumference = 2 * Math.PI * 94;
+  ring.style.strokeDasharray = String(circumference);
+  ring.style.strokeDashoffset = String(circumference * (1 - Math.max(0, Math.min(1, progress))));
+  ring.dataset.finished = String(brewingTimerState.status === 'completed');
+  document.getElementById('brewing-countdown').textContent = formatBrewingTime(brewingTimerState.remainingMs);
 
-  const statusText = {
-    idle: 'Sẵn sàng ủ trà',
-    running: 'Đang ủ trà...',
+  const timerStatus = {
+    idle: 'Sẵn sàng',
+    running: 'Đang chạy...',
     paused: 'Đã tạm dừng',
-    completed: 'Trà đã ủ xong!'
+    completed: 'Đã hết giờ!'
   };
-  document.getElementById('brewing-status').textContent = statusText[brewingTimerState.status];
-  document.getElementById('brewing-start-btn').disabled = !recipe || brewingTimerState.status === 'running';
-  document.getElementById('brewing-start-btn').textContent =
-    brewingTimerState.status === 'paused' ? '▶ Tiếp tục' : '▶ Bắt đầu ủ';
-  document.getElementById('brewing-pause-btn').disabled = brewingTimerState.status !== 'running';
+  document.getElementById('brewing-timer-label').textContent = timerStatus[brewingTimerState.status];
+  const startButton = document.getElementById('brewing-start-btn');
+  startButton.textContent = brewingTimerState.status === 'running'
+    ? '⏸ Tạm dừng'
+    : brewingTimerState.status === 'paused'
+      ? '▶ Tiếp tục'
+      : brewingTimerState.status === 'completed'
+        ? '✓ Đã hoàn thành'
+        : '▶ Bắt đầu';
+  startButton.disabled = !getSelectedBrewingRecipe() || brewingTimerState.status === 'completed';
+}
 
-  const formDisabled = brewingTimerState.status === 'running';
-  document.querySelectorAll('#brewing-settings-form input, #brewing-settings-form textarea, #brewing-save-btn, #brewing-cancel-edit-btn, .brewing-recipe-card button')
-    .forEach(control => { control.disabled = formDisabled; });
+function getBrewingSteps(recipe) {
+  if (Array.isArray(recipe.steps)) return recipe.steps;
+
+  return [
+    'Làm nóng nồi ủ và các dụng cụ.',
+    `Cân ${recipe.teaAmount}g nguyên liệu, thêm ${recipe.waterAmount}${recipe.waterUnit || 'ml'} nước ở ${recipe.temperature}°C và ủ trong ${recipe.minutes} phút.`,
+    'Đổ cốt ra ca, khuấy đều.',
+    `Lọc và kiểm tra thành phẩm, thu về chuẩn ${recipe.yieldAmount}ml.`,
+    'Đóng chai, dán tem và cất vào tủ mát.'
+  ];
+}
+
+function renderBrewingRecipes() {
+  const recipes = getBrewingRecipes();
+  const isRunning = brewingTimerState.status === 'running';
+  if (!recipes.some(recipe => recipe.id === brewingTimerState.selectedRecipeId)) {
+    brewingTimerState.selectedRecipeId = recipes[0] ? recipes[0].id : null;
+    brewingTimerState.status = 'idle';
+    brewingTimerState.remainingMs = getBrewingDuration();
+  }
+
+  const recipe = getSelectedBrewingRecipe();
+  const list = document.getElementById('brewing-recipes-list');
+  list.replaceChildren();
+
+  recipes.forEach(item => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'brewing-recipe-tab';
+    button.textContent = item.name;
+    button.setAttribute('aria-pressed', String(item.id === brewingTimerState.selectedRecipeId));
+    button.disabled = isRunning;
+    button.addEventListener('click', () => selectBrewingRecipe(item.id));
+    list.appendChild(button);
+  });
+
+  document.getElementById('brewing-add-btn').disabled = isRunning;
+  document.getElementById('brewing-selected-name').textContent = recipe ? recipe.name : 'Chọn công thức';
+  document.getElementById('brewing-stat-tea').textContent = recipe
+    ? recipe.ingredientAmountLabel || recipe.teaAmount
+    : '—';
+  document.getElementById('brewing-stat-tea-unit').textContent = recipe && recipe.ingredientAmountLabel ? '' : 'g';
+  document.getElementById('brewing-stat-water-label').textContent = recipe ? recipe.waterLabel || 'Lượng nước' : 'Lượng nước';
+  document.getElementById('brewing-stat-water').textContent = recipe ? recipe.waterAmount : '—';
+  document.getElementById('brewing-stat-water-unit').textContent = recipe ? recipe.waterUnit || 'ml' : 'ml';
+  document.getElementById('brewing-stat-temperature').textContent = recipe && Number.isFinite(recipe.temperature) ? recipe.temperature : '—';
+  document.getElementById('brewing-stat-temperature-unit').textContent = recipe && Number.isFinite(recipe.temperature) ? '°C' : '';
+  document.getElementById('brewing-stat-yield').textContent = recipe && Number.isFinite(recipe.yieldAmount) ? recipe.yieldAmount : '—';
+  document.getElementById('brewing-stat-yield-unit').textContent = recipe && Number.isFinite(recipe.yieldAmount) ? 'ml' : '';
+  document.getElementById('brewing-stat-yield-label').textContent = recipe ? recipe.yieldLabel || 'Thành phẩm thu về' : 'Thành phẩm thu về';
+
+  const isCustom = Boolean(recipe && recipe.custom);
+  const editButton = document.getElementById('brewing-edit-btn');
+  const deleteButton = document.getElementById('brewing-delete-btn');
+  editButton.hidden = !isCustom;
+  editButton.disabled = isRunning;
+  deleteButton.hidden = !isCustom;
+  deleteButton.disabled = isRunning;
+
+  const note = document.getElementById('brewing-recipe-note');
+  note.textContent = recipe && recipe.notes ? `Ghi chú: ${recipe.notes}` : '';
+  note.hidden = !recipe || !recipe.notes;
+
+  const stepsList = document.getElementById('brewing-sop-list');
+  stepsList.replaceChildren();
+  const steps = recipe ? getBrewingSteps(recipe) : [];
+  document.getElementById('brewing-sop-title').textContent = `Quy trình chuẩn · ${steps.length} bước`;
+  if (recipe) {
+    steps.forEach((text, index) => {
+      const item = document.createElement('li');
+      const button = document.createElement('button');
+      const number = document.createElement('span');
+      const label = document.createElement('span');
+      const completed = brewingTimerState.completedSteps.has(index);
+
+      button.type = 'button';
+      button.className = 'brewing-sop-step';
+      button.setAttribute('aria-pressed', String(completed));
+      number.className = 'brewing-sop-number';
+      number.textContent = completed ? '✓' : String(index + 1);
+      label.className = 'brewing-sop-text';
+      label.textContent = text;
+      button.append(number, label);
+      button.addEventListener('click', () => {
+        if (brewingTimerState.completedSteps.has(index)) brewingTimerState.completedSteps.delete(index);
+        else brewingTimerState.completedSteps.add(index);
+        renderBrewingRecipes();
+      });
+      item.appendChild(button);
+      stepsList.appendChild(item);
+    });
+  }
+
+  updateBrewingTimerDisplay();
+}
+
+function selectBrewingRecipe(recipeId) {
+  if (brewingTimerState.status === 'running') {
+    showToast('Hãy tạm dừng đồng hồ trước khi đổi công thức.', 'warning');
+    return;
+  }
+  const recipe = getBrewingRecipes().find(item => item.id === recipeId);
+  if (!recipe) return;
+  brewingTimerState.selectedRecipeId = recipe.id;
+  brewingTimerState.status = 'idle';
+  brewingTimerState.remainingMs = recipe.minutes * 60000;
+  brewingTimerState.completedSteps = new Set();
+  renderBrewingRecipes();
 }
 
 function resetBrewingTimer() {
   clearInterval(brewingTimerState.intervalId);
   brewingTimerState.intervalId = null;
   brewingTimerState.endAt = null;
-  brewingTimerState.remainingMs = getBrewingDuration() || 0;
   brewingTimerState.status = 'idle';
+  brewingTimerState.remainingMs = getBrewingDuration();
   updateBrewingTimerDisplay();
+}
+
+function playBrewingAlarm() {
+  if (!brewingAudioContext) {
+    showToast('Đã hết giờ ủ! Trình duyệt này không hỗ trợ chuông báo.', 'warning');
+    return;
+  }
+
+  const audio = brewingAudioContext;
+  const playTone = () => {
+    if (audio.state !== 'running') {
+      showToast('Đã hết giờ ủ nhưng trình duyệt không phát được chuông.', 'warning');
+      return;
+    }
+
+    const oscillator = audio.createOscillator();
+    const gain = audio.createGain();
+    const now = audio.currentTime;
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(880, now);
+    oscillator.frequency.setValueAtTime(660, now + 0.25);
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.exponentialRampToValueAtTime(0.18, now + 0.03);
+    gain.gain.setValueAtTime(0.18, now + 0.18);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+    gain.gain.setValueAtTime(0.001, now + 0.25);
+    gain.gain.exponentialRampToValueAtTime(0.18, now + 0.28);
+    gain.gain.setValueAtTime(0.18, now + 0.43);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+    oscillator.connect(gain);
+    gain.connect(audio.destination);
+    oscillator.onended = () => {
+      audio.close();
+      if (brewingAudioContext === audio) brewingAudioContext = null;
+    };
+    oscillator.start(now);
+    oscillator.stop(now + 0.52);
+  };
+
+  const resumed = audio.state === 'running' ? Promise.resolve() : audio.resume();
+  resumed.then(playTone).catch(error => {
+    console.error('Không thể phát chuông báo ủ:', error);
+    showToast('Đã hết giờ ủ nhưng trình duyệt không phát được chuông.', 'warning');
+  });
 }
 
 function tickBrewingTimer() {
@@ -1016,232 +1435,145 @@ function tickBrewingTimer() {
     brewingTimerState.intervalId = null;
     brewingTimerState.endAt = null;
     brewingTimerState.status = 'completed';
-    showToast('Thời gian ủ trà đã hết!', 'success');
+    renderBrewingRecipes();
+    showToast('Thời gian ủ đã hết!', 'success');
+    playBrewingAlarm();
+    return;
   }
   updateBrewingTimerDisplay();
 }
 
 function startBrewingTimer() {
-  if (brewingTimerState.status === 'running') return;
-
-  const recipe = getSelectedBrewingRecipe();
-  if (!recipe) {
-    showToast('Hãy chọn một công thức ủ trà trước.', 'warning');
+  if (brewingTimerState.status === 'running' || brewingTimerState.status === 'completed') return;
+  const duration = getBrewingDuration();
+  if (!Number.isFinite(duration) || duration <= 0 || duration > 86400000) {
+    showToast('Thời gian ủ trong công thức không hợp lệ.', 'warning');
     return;
   }
-
-  if (brewingTimerState.status !== 'paused') {
-    const duration = getBrewingDuration();
-    if (!Number.isFinite(duration) || duration <= 0 || duration > 86400000) {
-      showToast('Thời gian ủ trong công thức không hợp lệ.', 'warning');
-      return;
-    }
+  if (brewingTimerState.status !== 'paused' || brewingTimerState.remainingMs <= 0) {
     brewingTimerState.remainingMs = duration;
   }
-
+  if (!brewingAudioContext) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      try {
+        brewingAudioContext = new AudioContextClass();
+        brewingAudioContext.resume().catch(error => {
+          console.error('Không thể khởi tạo âm thanh cho đồng hồ ủ:', error);
+        });
+      } catch (error) {
+        console.error('Không thể khởi tạo âm thanh cho đồng hồ ủ:', error);
+      }
+    }
+  }
   brewingTimerState.endAt = Date.now() + brewingTimerState.remainingMs;
   brewingTimerState.status = 'running';
-  brewingTimerState.intervalId = setInterval(tickBrewingTimer, 250);
-  updateBrewingTimerDisplay();
-}
-
-function pauseBrewingTimer() {
-  if (brewingTimerState.status !== 'running') return;
-
-  brewingTimerState.remainingMs = Math.max(0, brewingTimerState.endAt - Date.now());
-  clearInterval(brewingTimerState.intervalId);
-  brewingTimerState.intervalId = null;
-  brewingTimerState.endAt = null;
-  brewingTimerState.status = 'paused';
-  updateBrewingTimerDisplay();
-}
-
-function selectBrewingRecipe(recipeId) {
-  if (brewingTimerState.status === 'running') {
-    showToast('Hãy tạm dừng hoặc đặt lại đồng hồ trước khi đổi công thức.', 'warning');
-    return;
-  }
-
-  const recipe = getBrewingRecipes().find(item => item.id === recipeId);
-  if (!recipe) return;
-  brewingTimerState.selectedRecipeId = recipe.id;
-  resetBrewingTimer();
+  brewingTimerState.intervalId = setInterval(tickBrewingTimer, 1000);
   renderBrewingRecipes();
 }
 
-function renderBrewingRecipes() {
-  const recipes = getBrewingRecipes();
-  const list = document.getElementById('brewing-recipes-list');
-  const selectedRecipe = recipes.find(recipe => recipe.id === brewingTimerState.selectedRecipeId);
-  const count = document.getElementById('brewing-recipe-count');
-  const selectedName = document.getElementById('brewing-selected-name');
-  const selectedDetails = document.getElementById('brewing-selected-details');
-
-  list.replaceChildren();
-  count.textContent = `${recipes.length} công thức`;
-  if (!selectedRecipe) {
-    brewingTimerState.selectedRecipeId = null;
-    selectedName.textContent = 'Chọn công thức để bắt đầu';
-    selectedDetails.textContent = 'Chọn một công thức bên dưới để xem tỉ lệ trà, nước và nhiệt độ.';
-    if (brewingTimerState.status !== 'running') {
-      brewingTimerState.remainingMs = 0;
-      brewingTimerState.status = 'idle';
-      updateBrewingTimerDisplay();
-    }
+function pauseBrewingTimer() {
+  if (brewingTimerState.status === 'running') {
+    brewingTimerState.remainingMs = Math.max(0, brewingTimerState.endAt - Date.now());
+    clearInterval(brewingTimerState.intervalId);
+    brewingTimerState.intervalId = null;
+    brewingTimerState.endAt = null;
+    brewingTimerState.status = 'paused';
+    renderBrewingRecipes();
+  } else if (brewingTimerState.status === 'idle' || brewingTimerState.status === 'paused') {
+    startBrewingTimer();
   }
-
-  if (selectedRecipe) {
-    selectedName.textContent = selectedRecipe.name;
-    selectedDetails.textContent =
-      `${selectedRecipe.teaType} · ${selectedRecipe.teaAmount} g trà / ${selectedRecipe.waterAmount} ml nước · ${selectedRecipe.temperature}°C`;
-  }
-
-  if (!recipes.length) {
-    const empty = document.createElement('p');
-    empty.className = 'brewing-empty';
-    empty.textContent = 'Chưa có công thức ủ trà. Thêm công thức của quán ở khung bên trên; danh sách sẽ được lưu trên thiết bị này.';
-    list.appendChild(empty);
-    return;
-  }
-
-  recipes.forEach(recipe => {
-    const card = document.createElement('article');
-    card.className = `brewing-recipe-card${recipe.id === brewingTimerState.selectedRecipeId ? ' selected' : ''}`;
-
-    const heading = document.createElement('h3');
-    heading.textContent = recipe.name;
-    const details = document.createElement('p');
-    details.textContent = `${recipe.teaType} · ${recipe.teaAmount} g trà / ${recipe.waterAmount} ml nước · ${recipe.temperature}°C · ${formatBrewingTime((recipe.minutes * 60 + recipe.seconds) * 1000)}`;
-
-    const steps = document.createElement('ol');
-    steps.className = 'brewing-recipe-steps';
-    (recipe.steps || []).forEach(step => {
-      const item = document.createElement('li');
-      item.textContent = step;
-      steps.appendChild(item);
-    });
-
-    const actions = document.createElement('div');
-    actions.className = 'brewing-recipe-actions';
-    const selectButton = document.createElement('button');
-    selectButton.className = 'btn-primary';
-    selectButton.type = 'button';
-    selectButton.textContent = recipe.id === brewingTimerState.selectedRecipeId ? 'Đang chọn' : 'Dùng công thức';
-    selectButton.disabled = recipe.id === brewingTimerState.selectedRecipeId || brewingTimerState.status === 'running';
-    selectButton.addEventListener('click', () => selectBrewingRecipe(recipe.id));
-
-    const editButton = document.createElement('button');
-    editButton.className = 'btn-secondary';
-    editButton.type = 'button';
-    editButton.textContent = 'Sửa';
-    editButton.disabled = brewingTimerState.status === 'running';
-    editButton.addEventListener('click', () => editBrewingRecipe(recipe.id));
-
-    const deleteButton = document.createElement('button');
-    deleteButton.className = 'btn-danger';
-    deleteButton.type = 'button';
-    deleteButton.textContent = 'Xóa';
-    deleteButton.disabled = brewingTimerState.status === 'running';
-    deleteButton.addEventListener('click', () => deleteBrewingRecipe(recipe.id));
-
-    actions.append(selectButton, editButton, deleteButton);
-    card.append(heading, details);
-    if (steps.childElementCount) card.appendChild(steps);
-    card.appendChild(actions);
-    list.appendChild(card);
-  });
 }
 
-function resetBrewingRecipeForm() {
-  brewingTimerState.editingRecipeId = null;
-  document.getElementById('brewing-form-title').textContent = 'Thêm công thức ủ trà';
-  document.getElementById('brewing-save-btn').textContent = '💾 Lưu công thức';
-  document.getElementById('brewing-cancel-edit-btn').hidden = true;
-  document.getElementById('brewing-name').value = '';
-  document.getElementById('brewing-tea-type').value = '';
-  document.getElementById('brewing-tea-amount').value = '';
-  document.getElementById('brewing-water-amount').value = '';
-  document.getElementById('brewing-temperature').value = '';
-  document.getElementById('brewing-minutes').value = '3';
-  document.getElementById('brewing-seconds').value = '0';
-  document.getElementById('brewing-steps').value = '';
-}
-
-function editBrewingRecipe(recipeId) {
-  const recipe = getBrewingRecipes().find(item => item.id === recipeId);
-  if (!recipe) return;
-
-  brewingTimerState.editingRecipeId = recipe.id;
-  document.getElementById('brewing-form-title').textContent = 'Chỉnh sửa công thức ủ trà';
-  document.getElementById('brewing-save-btn').textContent = '💾 Cập nhật công thức';
-  document.getElementById('brewing-cancel-edit-btn').hidden = false;
-  document.getElementById('brewing-name').value = recipe.name;
-  document.getElementById('brewing-tea-type').value = recipe.teaType;
-  document.getElementById('brewing-tea-amount').value = recipe.teaAmount;
-  document.getElementById('brewing-water-amount').value = recipe.waterAmount;
-  document.getElementById('brewing-temperature').value = recipe.temperature;
-  document.getElementById('brewing-minutes').value = recipe.minutes;
-  document.getElementById('brewing-seconds').value = recipe.seconds;
-  document.getElementById('brewing-steps').value = (recipe.steps || []).join('\n');
+function openBrewingModal(recipe = null) {
+  const modal = document.getElementById('brewing-modal');
+  brewingTimerState.lastFocusedElement = document.activeElement;
+  brewingTimerState.editingRecipeId = recipe ? recipe.id : null;
+  document.getElementById('brewing-modal-title').textContent = recipe ? 'Chỉnh sửa công thức ủ' : 'Thêm công thức ủ';
+  document.getElementById('brewing-name').value = recipe ? recipe.name : '';
+  document.getElementById('brewing-tea-amount').value = recipe ? recipe.teaAmount : '';
+  document.getElementById('brewing-water-amount').value = recipe ? recipe.waterAmount : '';
+  document.getElementById('brewing-temperature').value = recipe ? recipe.temperature : '';
+  document.getElementById('brewing-minutes').value = recipe ? recipe.minutes : '';
+  document.getElementById('brewing-yield').value = recipe ? recipe.yieldAmount : '';
+  document.getElementById('brewing-notes').value = recipe ? recipe.notes : '';
+  modal.hidden = false;
   document.getElementById('brewing-name').focus();
 }
 
-function saveBrewingRecipeFromForm() {
+function closeBrewingModal() {
+  document.getElementById('brewing-modal').hidden = true;
+  document.getElementById('brewing-form').reset();
+  brewingTimerState.editingRecipeId = null;
+  if (brewingTimerState.lastFocusedElement instanceof HTMLElement) brewingTimerState.lastFocusedElement.focus();
+}
+
+function editBrewingRecipe(recipeId) {
+  const recipe = getBrewingRecipes().find(item => item.id === recipeId && item.custom);
+  if (recipe) openBrewingModal(recipe);
+}
+
+function saveBrewingRecipeFromForm(event) {
+  event.preventDefault();
+  const form = document.getElementById('brewing-form');
+  if (!form.reportValidity()) return;
+
   const name = document.getElementById('brewing-name').value.trim();
-  const teaType = document.getElementById('brewing-tea-type').value.trim();
   const teaAmount = Number(document.getElementById('brewing-tea-amount').value);
   const waterAmount = Number(document.getElementById('brewing-water-amount').value);
   const temperature = Number(document.getElementById('brewing-temperature').value);
   const minutes = Number(document.getElementById('brewing-minutes').value);
-  const seconds = Number(document.getElementById('brewing-seconds').value);
-
-  if (!name || !teaType || !Number.isFinite(teaAmount) || teaAmount <= 0 ||
-      !Number.isFinite(waterAmount) || waterAmount <= 0 ||
-      !Number.isInteger(temperature) || temperature < 1 || temperature > 100 ||
-      !Number.isInteger(minutes) || minutes < 0 ||
-      !Number.isInteger(seconds) || seconds < 0 || seconds > 59 ||
-      minutes * 60 + seconds <= 0 || minutes * 60 + seconds > 86400) {
-    showToast('Hãy nhập tên, loại trà, định lượng, nhiệt độ và thời gian ủ hợp lệ.', 'warning');
+  const yieldAmount = Number(document.getElementById('brewing-yield').value);
+  if (!name || ![teaAmount, waterAmount, temperature, minutes, yieldAmount].every(Number.isFinite) ||
+      teaAmount <= 0 || waterAmount <= 0 || temperature < 1 || temperature > 100 ||
+      minutes <= 0 || minutes > 1440 || yieldAmount <= 0) {
+    showToast('Hãy nhập thông số công thức hợp lệ.', 'warning');
     return;
   }
 
   const recipes = getBrewingRecipes();
+  const editingId = brewingTimerState.editingRecipeId;
+  const existing = editingId ? recipes.find(recipe => recipe.id === editingId && recipe.custom) : null;
   const recipe = {
-    id: brewingTimerState.editingRecipeId || uid(),
+    id: existing ? existing.id : `brew_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`,
     name,
-    teaType,
+    teaType: name,
     teaAmount,
     waterAmount,
     temperature,
     minutes,
-    seconds,
-    steps: document.getElementById('brewing-steps').value.split('\n').map(step => step.trim()).filter(Boolean)
+    seconds: 0,
+    yieldAmount,
+    notes: document.getElementById('brewing-notes').value.trim(),
+    custom: true
   };
-  const existingIndex = recipes.findIndex(item => item.id === recipe.id);
-  if (existingIndex >= 0) recipes[existingIndex] = recipe;
-  else recipes.unshift(recipe);
+  const updated = recipes.filter(item => item.custom && item.id !== recipe.id);
+  updated.push(recipe);
+  if (!saveBrewingRecipes(updated)) return;
 
-  if (!saveBrewingRecipes(recipes)) return;
   brewingTimerState.selectedRecipeId = recipe.id;
-  resetBrewingRecipeForm();
+  brewingTimerState.status = 'idle';
+  brewingTimerState.remainingMs = recipe.minutes * 60000;
+  brewingTimerState.completedSteps = new Set();
+  closeBrewingModal();
   renderBrewingRecipes();
-  resetBrewingTimer();
-  showToast(existingIndex >= 0 ? 'Đã cập nhật công thức ủ trà.' : 'Đã lưu công thức ủ trà.', 'success');
+  showToast(existing ? 'Đã cập nhật công thức ủ.' : 'Đã lưu công thức ủ.', 'success');
 }
 
 function deleteBrewingRecipe(recipeId) {
-  const recipe = getBrewingRecipes().find(item => item.id === recipeId);
+  const recipe = getBrewingRecipes().find(item => item.id === recipeId && item.custom);
   if (!recipe || !confirm(`Xóa công thức "${recipe.name}"?`)) return;
+  const updated = getBrewingRecipes().filter(item => item.custom && item.id !== recipeId);
+  if (!saveBrewingRecipes(updated)) return;
 
-  const recipes = getBrewingRecipes().filter(item => item.id !== recipeId);
-  if (!saveBrewingRecipes(recipes)) return;
   if (brewingTimerState.selectedRecipeId === recipeId) {
-    brewingTimerState.selectedRecipeId = null;
-    resetBrewingTimer();
+    brewingTimerState.selectedRecipeId = DEFAULT_BREWING_RECIPES[0].id;
+    brewingTimerState.status = 'idle';
+    brewingTimerState.remainingMs = DEFAULT_BREWING_RECIPES[0].minutes * 60000;
+    brewingTimerState.completedSteps = new Set();
   }
-  if (brewingTimerState.editingRecipeId === recipeId) resetBrewingRecipeForm();
   renderBrewingRecipes();
-  showToast('Đã xóa công thức ủ trà.', 'success');
+  showToast('Đã xóa công thức ủ.', 'success');
 }
 
 /** Mở sidebar trên mobile */
@@ -2784,10 +3116,134 @@ function submitGame2() {
    PHẦN 11: KHỞI TẠO ỨNG DỤNG – DOMContentLoaded
    ============================================================= */
 
+const BARISTA_AUTH_SESSION_KEY = 'barista_access_gate_session';
+
+function initBaristaAccessGate() {
+  const gate = document.getElementById('barista-auth-gate');
+  const card = gate.querySelector('.barista-auth-card');
+  const form = document.getElementById('barista-auth-form');
+  const nameInput = document.getElementById('barista-auth-name');
+  const codeInput = document.getElementById('barista-auth-code');
+  const errorMessage = document.getElementById('barista-auth-error');
+  const badge = document.getElementById('barista-auth-badge');
+  const badgeName = document.getElementById('barista-auth-badge-name');
+  let hideGateTimeout = null;
+
+  const showMessage = (message, shouldShake = false) => {
+    errorMessage.textContent = message;
+    errorMessage.hidden = false;
+    if (!shouldShake) return;
+    card.classList.remove('is-shaking');
+    void card.offsetWidth;
+    card.classList.add('is-shaking');
+  };
+
+  const unlockGate = (name, animate = true) => {
+    badgeName.textContent = name;
+    badge.hidden = false;
+    gate.hidden = false;
+    gate.setAttribute('aria-hidden', 'true');
+    gate.classList.add('is-unlocking');
+
+    if (hideGateTimeout) clearTimeout(hideGateTimeout);
+    if (animate) {
+      hideGateTimeout = setTimeout(() => {
+        gate.hidden = true;
+        hideGateTimeout = null;
+      }, 300);
+    } else {
+      gate.hidden = true;
+    }
+  };
+
+  const lockGate = () => {
+    if (hideGateTimeout) {
+      clearTimeout(hideGateTimeout);
+      hideGateTimeout = null;
+    }
+    gate.hidden = false;
+    gate.classList.remove('is-unlocking');
+    gate.setAttribute('aria-hidden', 'false');
+    badge.hidden = true;
+    badgeName.textContent = '';
+    nameInput.value = '';
+    codeInput.value = '';
+    codeInput.type = 'password';
+    document.getElementById('barista-auth-toggle-code').setAttribute('aria-label', 'Hiện mã ID');
+    document.getElementById('barista-auth-toggle-code').setAttribute('aria-pressed', 'false');
+    errorMessage.textContent = '';
+    errorMessage.hidden = true;
+    nameInput.focus();
+  };
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const name = nameInput.value.trim();
+    const code = codeInput.value.trim();
+
+    if (!name || code !== 'ntp0102') {
+      showMessage('Không được phép đăng nhập vào! Vui lòng kiểm tra lại Mã ID quán.', true);
+      if (!name) nameInput.focus();
+      else codeInput.focus();
+      return;
+    }
+
+    try {
+      sessionStorage.setItem(BARISTA_AUTH_SESSION_KEY, JSON.stringify({
+        authenticated: true,
+        name
+      }));
+    } catch (error) {
+      console.error('Không thể lưu phiên đăng nhập ca trực:', error);
+      showMessage('Không thể lưu phiên đăng nhập trong trình duyệt này. Vui lòng kiểm tra cài đặt lưu trữ.');
+      return;
+    }
+
+    errorMessage.hidden = true;
+    unlockGate(name);
+  });
+
+  document.getElementById('barista-auth-toggle-code').addEventListener('click', event => {
+    const button = event.currentTarget;
+    const showCode = codeInput.type === 'password';
+    codeInput.type = showCode ? 'text' : 'password';
+    button.setAttribute('aria-label', showCode ? 'Ẩn mã ID' : 'Hiện mã ID');
+    button.setAttribute('aria-pressed', String(showCode));
+    codeInput.focus();
+  });
+
+  document.getElementById('barista-auth-logout').addEventListener('click', () => {
+    try {
+      sessionStorage.removeItem(BARISTA_AUTH_SESSION_KEY);
+    } catch (error) {
+      console.error('Không thể xóa phiên đăng nhập ca trực:', error);
+    }
+    lockGate();
+  });
+
+  try {
+    const savedSession = sessionStorage.getItem(BARISTA_AUTH_SESSION_KEY);
+    if (savedSession) {
+      const session = JSON.parse(savedSession);
+      if (session && session.authenticated === true && typeof session.name === 'string' && session.name.trim()) {
+        unlockGate(session.name.trim(), false);
+        return;
+      }
+    }
+  } catch (error) {
+    console.error('Không thể khôi phục phiên đăng nhập ca trực:', error);
+    showMessage('Không thể đọc phiên đăng nhập trong trình duyệt này. Vui lòng kiểm tra cài đặt lưu trữ.');
+  }
+
+  gate.setAttribute('aria-hidden', 'false');
+  nameInput.focus();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initBaristaAccessGate();
 
   // === Khởi tạo & Tự động đồng bộ dữ liệu phiên bản mới ===
-  autoSyncRecipes(); // Đồng bộ công thức mẫu v3 vào localStorage
+  autoSyncRecipes(); // Đồng bộ công thức mẫu v5 vào localStorage
 
   // === Hiệu ứng loading ===
   setTimeout(() => toggleLoadingOverlay(false), 1200);
@@ -2807,13 +3263,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // === Bộ Đếm Thời Gian Ủ Trà ===
-  document.getElementById('brewing-save-btn').addEventListener('click', saveBrewingRecipeFromForm);
-  document.getElementById('brewing-cancel-edit-btn').addEventListener('click', resetBrewingRecipeForm);
-  document.getElementById('brewing-start-btn').addEventListener('click', startBrewingTimer);
-  document.getElementById('brewing-pause-btn').addEventListener('click', pauseBrewingTimer);
+  document.getElementById('brewing-add-btn').addEventListener('click', () => openBrewingModal());
+  document.getElementById('brewing-edit-btn').addEventListener('click', () => editBrewingRecipe(brewingTimerState.selectedRecipeId));
+  document.getElementById('brewing-delete-btn').addEventListener('click', () => deleteBrewingRecipe(brewingTimerState.selectedRecipeId));
+  document.getElementById('brewing-start-btn').addEventListener('click', pauseBrewingTimer);
   document.getElementById('brewing-reset-btn').addEventListener('click', resetBrewingTimer);
+  document.getElementById('brewing-form').addEventListener('submit', saveBrewingRecipeFromForm);
+  document.getElementById('brewing-modal-close').addEventListener('click', closeBrewingModal);
+  document.getElementById('brewing-modal-cancel').addEventListener('click', closeBrewingModal);
+  document.getElementById('brewing-modal').addEventListener('click', event => {
+    if (event.target.id === 'brewing-modal') closeBrewingModal();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !document.getElementById('brewing-modal').hidden) closeBrewingModal();
+  });
   renderBrewingRecipes();
-  updateBrewingTimerDisplay();
 
   // === Mobile Sidebar ===
   document.getElementById('hamburger-btn').addEventListener('click', openMobileSidebar);
